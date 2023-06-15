@@ -1,39 +1,33 @@
 const { Usuario: UsuarioModel } = require("../models/usuario");
-const argon2 = require('argon2');
-
+const crypto = require('crypto');
 
 const usuarioController = {
 
     create: async (req, res) => {
         try {
             const { nome, email, matricula, senha } = req.body;
-
-            let hashedSenha;
-
-            if (senha) {
-                // Gerar o hash da senha
-                hashedSenha = await argon2.hash(senha, 10);
-            } else {
-                // Lidar com o caso em que a senha não está definida
-                // Por exemplo, você pode atribuir um valor padrão ou lançar um erro
-                hashedSenha = ""; // Defina um valor padrão para a senha (vazio neste exemplo)
+    
+            if (!senha) {
+                throw new Error("A senha é obrigatória.");
             }
-
+    
+            const hashedSenha = crypto.createHash('sha256').update(senha).digest('hex');
+    
             const usuario = {
                 nome: nome,
                 email: email,
                 matricula: matricula,
                 senha: hashedSenha, // Armazenar o hash da senha
             };
-
+    
             const response = await UsuarioModel.create(usuario);
-
+    
             res.status(201).json({ response, msg: "Cadastro realizado com sucesso!" });
         } catch (error) {
             console.log(error);
             res.status(400).json({ error: "Erro ao criar usuário." });
         }
-    },
+    }, 
 
 
     getAll: async (req, res) => {
