@@ -5,7 +5,7 @@ const usuarioController = {
 
     create: async (req, res) => {
         try {
-            const { nome, email, matricula, senha } = req.body;
+            const { nomeCompleto, email, matricula, senha } = req.body;
 
             if (!senha || senha.trim().length === 0) {
                 res.status(400).json({ error: "A senha é obrigatória." });
@@ -13,7 +13,7 @@ const usuarioController = {
             }
 
             const usuario = {
-                nome: nome,
+                nome: nomeCompleto,
                 email: email,
                 matricula: matricula,
                 senha: senha,
@@ -27,6 +27,7 @@ const usuarioController = {
             res.status(400).json({ error: "Erro ao criar usuário." });
         }
     },
+
 
 
     getAll: async (req, res) => {
@@ -80,28 +81,28 @@ const usuarioController = {
     update: async (req, res) => {
         try {
             const id = req.params.id;
-    
+
             const usuario = {
-                nome: req.body.nome,
+                nome: req.body.nomeCompleto,
                 email: req.body.email,
                 matricula: req.body.matricula,
                 senha: req.body.senha,
             };
-    
+
             const updateUsuario = await UsuarioModel.findByIdAndUpdate(id, usuario, { new: true });
-    
+
             if (!updateUsuario) {
                 res.status(404).json({ msg: "Usuário não encontrado." });
                 return;
             }
-    
+
             res.status(200).json({ usuario: updateUsuario, msg: "Usuário atualizado com sucesso." });
         } catch (error) {
             console.log(error);
             res.status(400).json({ error: "Erro ao atualizar usuário." });
         }
     },
-    
+
 
     fazerCheckin: async (req, res) => {
         try {
