@@ -78,25 +78,30 @@ const usuarioController = {
     },
 
     update: async (req, res) => {
-
-        const id = req.params.id
-
-        const usuario = {
-            nome: req.body.nome,
-            email: req.body.email,
-            matricula: req.body.matricula,
-            senha: req.body.senha,
-        };
-
-        const updateUsuario = await UsuarioModel.findByIdAndUpdate(id, usuario)
-
-        if (!updateUsuario) {
-            res.status(404).json({ msg: "Usuário não encontrado." });
-            return;
+        try {
+            const id = req.params.id;
+    
+            const usuario = {
+                nome: req.body.nome,
+                email: req.body.email,
+                matricula: req.body.matricula,
+                senha: req.body.senha,
+            };
+    
+            const updateUsuario = await UsuarioModel.findByIdAndUpdate(id, usuario, { new: true });
+    
+            if (!updateUsuario) {
+                res.status(404).json({ msg: "Usuário não encontrado." });
+                return;
+            }
+    
+            res.status(200).json({ usuario: updateUsuario, msg: "Usuário atualizado com sucesso." });
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({ error: "Erro ao atualizar usuário." });
         }
-
-        res.status(200).json({ usuario, msg: "Usuário atualizado com sucesso." })
     },
+    
 
     fazerCheckin: async (req, res) => {
         try {
