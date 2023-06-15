@@ -6,28 +6,30 @@ const usuarioController = {
     create: async (req, res) => {
         try {
             const { nome, email, matricula, senha } = req.body;
-    
+
             if (!senha) {
-                throw new Error("A senha é obrigatória.");
+                res.status(400).json({ error: "A senha é obrigatória." });
+                return;
             }
-    
-            const hashedSenha = crypto.createHash('sha256').update(senha).digest('hex');
-    
+
+            const hashedSenha = await argon2.hash(senha, 10);
+
             const usuario = {
                 nome: nome,
                 email: email,
                 matricula: matricula,
-                senha: hashedSenha, // Armazenar o hash da senha
+                senha: hashedSenha,
             };
-    
+
             const response = await UsuarioModel.create(usuario);
-    
+
             res.status(201).json({ response, msg: "Cadastro realizado com sucesso!" });
         } catch (error) {
             console.log(error);
             res.status(400).json({ error: "Erro ao criar usuário." });
         }
-    }, 
+    },
+
 
 
     getAll: async (req, res) => {
