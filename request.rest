@@ -10,6 +10,18 @@ Content-Type: application/json
 }
 
 ###
+POST https://api-selfcheck.cyclic.app/api/usuario
+Content-Type: application/json
+
+{
+    "nome": "Amanda paiva",
+    "email": "amandacalado@test.com",
+    "matricula": "123456",
+    "senha": "010101"
+}
+
+
+###
 GET  http://localhost:3000/api/usuario
 
 ###
@@ -48,5 +60,14 @@ Content-Type: application/json
 
 {
     "email": "amandacalado@testlocal.com",
+    "senha": "010101"
+}
+
+###
+POST https://famous-red-poncho.cyclic.app/api/usuario/login
+Content-Type: application/json
+
+{
+    "email": "amandacalado@test.com",
     "senha": "010101"
 }
