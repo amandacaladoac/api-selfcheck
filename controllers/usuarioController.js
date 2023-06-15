@@ -1,5 +1,6 @@
 const { Usuario: UsuarioModel } = require("../models/usuario");
-const bcrypt = require("bcrypt");
+const argon2 = require('argon2');
+
 
 const usuarioController = {
 
@@ -11,7 +12,7 @@ const usuarioController = {
 
             if (senha) {
                 // Gerar o hash da senha
-                hashedSenha = await bcrypt.hash(senha, 10);
+                hashedSenha = await argon2.hash(senha, 10);
             } else {
                 // Lidar com o caso em que a senha não está definida
                 // Por exemplo, você pode atribuir um valor padrão ou lançar um erro

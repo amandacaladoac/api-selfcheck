@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const argon2 = require('argon2');
+
 
 const { Schema } = mongoose;
 
@@ -38,7 +39,7 @@ usuarioSchema.methods.fazerCheckin = function () {
 
 usuarioSchema.methods.verificarSenha = async function (senha) {
     try {
-        return await bcrypt.compare(senha, this.senha);
+        return await argon2.compare(senha, this.senha);
     } catch (error) {
         console.log(error);
         return false;
