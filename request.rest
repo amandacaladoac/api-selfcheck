@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "nome": "Amanda",
-    "email": "amandacalado@fac.com",
+    "email": "amandacalado@testlocal.com",
     "matricula": "123456",
     "senha": "010101"
 }
@@ -47,6 +47,6 @@ POST http://localhost:3000/api/usuario/login
 Content-Type: application/json
 
 {
-    "email": "amandacalado@fac.com",
+    "email": "amandacalado@testlocal.com",
     "senha": "010101"
 }

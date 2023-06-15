@@ -1,5 +1,5 @@
 const { Usuario: UsuarioModel } = require("../models/usuario");
-const crypto = require('crypto');
+
 
 const usuarioController = {
 
@@ -12,15 +12,11 @@ const usuarioController = {
                 return;
             }
 
-            const salt = crypto.randomBytes(16).toString('hex');
-            const hashedSenha = crypto.pbkdf2Sync(senha, salt, 1000, 64, 'sha512').toString('hex');
-
             const usuario = {
                 nome: nome,
                 email: email,
                 matricula: matricula,
-                senha: hashedSenha,
-                salt: salt,
+                senha: senha,
             };
 
             const response = await UsuarioModel.create(usuario);
@@ -31,8 +27,6 @@ const usuarioController = {
             res.status(400).json({ error: "Erro ao criar usuário." });
         }
     },
-
-
 
 
     getAll: async (req, res) => {
@@ -130,7 +124,7 @@ const usuarioController = {
 
     login: async (req, res) => {
         try {
-            const { email } = req.body;
+            const { email, senha } = req.body;
 
             const usuario = await UsuarioModel.findOne({ email });
 
@@ -139,7 +133,11 @@ const usuarioController = {
                 return;
             }
 
-            // Login bem-sucedido sem verificação de senha
+            if (usuario.senha !== senha) {
+                res.status(401).json({ msg: "Credenciais inválidas." });
+                return;
+            }
+
             res.status(200).json({ msg: "Login realizado com sucesso.", usuario });
         } catch (error) {
             console.log(error);

@@ -36,14 +36,9 @@ usuarioSchema.methods.fazerCheckin = function () {
     return this.save();
 };
 
-usuarioSchema.methods.verificarSenha = async function (senha) {
-    try {
-        // Removendo a verificação da senha
-        return true;
-    } catch (error) {
-        console.log(error);
-        return false;
-    }
+usuarioSchema.methods.verificarSenha = function (senha) {
+    // Comparar a senha fornecida com a senha armazenada no modelo do usuário
+    return this.senha === senha;
 };
 
 const Usuario = mongoose.model("Usuario", usuarioSchema)
