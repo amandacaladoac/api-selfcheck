@@ -7,8 +7,16 @@ const usuarioController = {
         try {
             const { nome, email, matricula, senha } = req.body;
 
-            // Gerar o hash da senha
-            const hashedSenha = await bcrypt.hash(senha, 10);
+            let hashedSenha;
+
+            if (senha) {
+                // Gerar o hash da senha
+                hashedSenha = await bcrypt.hash(senha, 10);
+            } else {
+                // Lidar com o caso em que a senha não está definida
+                // Por exemplo, você pode atribuir um valor padrão ou lançar um erro
+                throw new Error("A senha é obrigatória.");
+            }
 
             const usuario = {
                 nome: nome,
@@ -22,8 +30,10 @@ const usuarioController = {
             res.status(201).json({ response, msg: "Cadastro realizado com sucesso!" });
         } catch (error) {
             console.log(error);
+            res.status(400).json({ error: "Erro ao criar usuário." });
         }
     },
+
 
     getAll: async (req, res) => {
         try {
