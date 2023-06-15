@@ -1,23 +1,23 @@
-const express = require("express")
-const cors = require("cors")
-const app = express()
+const express = require("express");
+const cors = require("cors");
+const app = express();
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
 // DB Connection
-const conn = require("./db/conn")
+const conn = require("./db/conn");
 
-conn();
+conn().then(() => {
+  // Router
+  const routes = require("./routes/router");
+  app.use("/api", routes);
 
-// Router
-const routes = require("./routes/router")
-
-app.use("/api", routes);
-
-
-// Iniciar o servidor
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
+  // Iniciar o servidor
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
     console.log(`Servidor iniciado na porta ${port}`);
+  });
+}).catch((error) => {
+  console.log(`Erro ao conectar ao banco de dados: ${error}`);
 });
