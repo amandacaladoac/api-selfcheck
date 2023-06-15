@@ -1,0 +1,29 @@
+# Diretórios
+node_modules/
+dist/
+coverage/
+
+# Arquivos de configuração
+.env
+
+# Logs
+*.log
+
+# Arquivos de compilação
+*.bak
+*.swp
+
+# Dependências e pacotes
+package-lock.json
+yarn.lock
+
+# Arquivos de ambiente específicos do editor
+.vscode/
+.idea/
+
+# Outros arquivos e diretórios gerados
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp

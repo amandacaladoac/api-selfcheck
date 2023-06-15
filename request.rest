@@ -1,0 +1,52 @@
+
+POST http://localhost:3000/api/usuario
+Content-Type: application/json
+
+{
+    "nome": "Amanda",
+    "email": "amandacalado@fac.com",
+    "matricula": "123456",
+    "senha": "010101"
+}
+
+###
+GET  http://localhost:3000/api/usuario
+
+###
+GET http://localhost:3000/api/usuario/648a4dc69868d089e70199cb
+
+###
+DELETE http://localhost:3000/api/usuario/648a4dc69868d089e70199cb
+
+###
+PUT http://localhost:3000/api/usuario/648a5664bfdff81dc53ea107
+Content-Type: application/json
+
+{
+    "nome": "Amanda Calado",
+    "email": "amandacalado@gmail.com",
+    "matricula": "123456",
+    "senha": "123856"
+}
+
+###
+POST http://localhost:3000/api/usuario
+Content-Type: application/json
+
+{
+    "nome": "Amanda",
+    "email": "amandacalado@outlook.com",
+    "senha": "123856"
+}
+
+###
+PUT http://localhost:3000/api/usuario/648a65993733d1ccc9705e19/checkin
+
+### 
+POST http://localhost:3000/api/usuario/login
+Content-Type: application/json
+
+{
+    "email": "amandacalado@fac.com",
+    "senha": "010101"
+}
