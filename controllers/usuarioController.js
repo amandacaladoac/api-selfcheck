@@ -7,18 +7,20 @@ const usuarioController = {
         try {
             const { nome, email, matricula, senha } = req.body;
 
-            if (!senha) {
+            if (!senha || senha.trim().length === 0) {
                 res.status(400).json({ error: "A senha é obrigatória." });
                 return;
             }
 
-            const hashedSenha = await argon2.hash(senha, 10);
+            const salt = crypto.randomBytes(16).toString('hex');
+            const hashedSenha = crypto.pbkdf2Sync(senha, salt, 1000, 64, 'sha512').toString('hex');
 
             const usuario = {
                 nome: nome,
                 email: email,
                 matricula: matricula,
                 senha: hashedSenha,
+                salt: salt,
             };
 
             const response = await UsuarioModel.create(usuario);
@@ -29,6 +31,7 @@ const usuarioController = {
             res.status(400).json({ error: "Erro ao criar usuário." });
         }
     },
+
 
 
 
