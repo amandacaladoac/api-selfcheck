@@ -3,7 +3,6 @@ const cors = require("cors")
 const app = express()
 
 app.use(cors())
-
 app.use(express.json())
 
 // DB Connection
@@ -16,6 +15,9 @@ const routes = require("./routes/router")
 
 app.use("/api", routes);
 
-app.listen(3000, function() {
-    console.log("Servidor Online!")
-})
+
+// Iniciar o servidor
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Servidor iniciado na porta ${port}`);
+});
