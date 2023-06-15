@@ -5,7 +5,7 @@ const usuarioController = {
 
     create: async (req, res) => {
         try {
-            const { nomeCompleto, email, matricula, senha } = req.body;
+            const { nome, email, matricula, senha } = req.body;
 
             if (!senha || senha.trim().length === 0) {
                 res.status(400).json({ error: "A senha é obrigatória." });
@@ -13,7 +13,7 @@ const usuarioController = {
             }
 
             const usuario = {
-                nome: nomeCompleto,
+                nome: nome,
                 email: email,
                 matricula: matricula,
                 senha: senha,
@@ -83,7 +83,7 @@ const usuarioController = {
             const id = req.params.id;
 
             const usuario = {
-                nome: req.body.nomeCompleto,
+                nome: req.body.nome,
                 email: req.body.email,
                 matricula: req.body.matricula,
                 senha: req.body.senha,
