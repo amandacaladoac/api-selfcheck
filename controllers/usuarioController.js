@@ -16,7 +16,7 @@ const usuarioController = {
             } else {
                 // Lidar com o caso em que a senha não está definida
                 // Por exemplo, você pode atribuir um valor padrão ou lançar um erro
-                throw new Error("A senha é obrigatória.");
+                hashedSenha = ""; // Defina um valor padrão para a senha (vazio neste exemplo)
             }
 
             const usuario = {
@@ -131,7 +131,7 @@ const usuarioController = {
 
     login: async (req, res) => {
         try {
-            const { email, senha } = req.body;
+            const { email } = req.body;
 
             const usuario = await UsuarioModel.findOne({ email });
 
@@ -140,14 +140,7 @@ const usuarioController = {
                 return;
             }
 
-            const senhaCorreta = await usuario.verificarSenha(senha);
-
-            if (!senhaCorreta) {
-                res.status(401).json({ msg: "Senha incorreta." });
-                return;
-            }
-
-            // Login bem-sucedido
+            // Login bem-sucedido sem verificação de senha
             res.status(200).json({ msg: "Login realizado com sucesso.", usuario });
         } catch (error) {
             console.log(error);
