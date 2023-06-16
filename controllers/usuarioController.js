@@ -115,7 +115,7 @@ const usuarioController = {
                 return;
             }
 
-            // Realize o check-in chamando o método fazerCheckin()
+            // Realize o check-in chamando o método fazerCheckin() no modelo do usuário
             usuario.fazerCheckin()
                 .then((usuarioAtualizado) => {
                     res.json({ mensagem: "Check-in realizado com sucesso", usuario: usuarioAtualizado });
@@ -125,8 +125,10 @@ const usuarioController = {
                 });
         } catch (error) {
             console.log(error);
+            res.status(500).json({ mensagem: "Erro ao realizar o check-in", erro: error.message });
         }
     },
+      
 
     login: async (req, res) => {
         try {
