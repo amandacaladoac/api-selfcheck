@@ -3,19 +3,8 @@ POST http://localhost:3000/api/usuario
 Content-Type: application/json
 
 {
-    "nome": "Amanda",
+    "nome": "Amanda beathriz",
     "email": "amandacalado@testlocal.com",
-    "matricula": "123456",
-    "senha": "010101"
-}
-
-###
-POST https://famous-red-poncho.cyclic.app/api/usuario
-Content-Type: application/json
-
-{
-    "nome": "Amanda",
-    "email": "amandacalado@test2.com",
     "matricula": "123456",
     "senha": "010101"
 }
@@ -60,4 +49,13 @@ Content-Type: application/json
 {
     "email": "amanda@react.com",
     "senha": "12345"
+}
+
+###
+POST https://famous-red-poncho.cyclic.app/api/usuario/login
+Content-Type: application/json
+
+{
+    "email": "amandacalado@test.com",
+    "senha": "010101"
 }
